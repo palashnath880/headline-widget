@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+/** form item style */
+.form-item {
+  @apply flex flex-col gap-2 items-start;
+}
+
+/** form label */
+.form-label,
+.form-item > label {
+  @apply font-medium text-base text-gray-600 cursor-pointer;
+}
+
+/** form item input, textarea */
+.form-item input,
+.form-item textarea,
+.form-item select {
+  @apply font-medium text-base text-gray-500 cursor-pointer outline-blue-400 !rounded-lg border-2 w-full border-gray-300 px-2 py-2;
+}
+
+.form-item input[type="range"],
+.form-item input[type="checkbox"],
+.form-item input[type="color"] {
+  @apply p-0;
+}
+
+/* form item input description */
+.form-item > span {
+  @apply text-sm text-gray-600;
+}

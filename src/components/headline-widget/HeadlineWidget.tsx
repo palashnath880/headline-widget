@@ -1,36 +1,23 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaPalette } from "react-icons/fa";
 import { IoSparklesSharp } from "react-icons/io5";
 import { LuType } from "react-icons/lu";
 import { motion } from "motion/react";
-import { AnimationTypes, GradientDirection, TabIds } from "../interfaces/enum";
+import {
+  AnimationTypes,
+  GradientDirection,
+  TabIds,
+} from "../../types/enum.type";
 import HeadlineText from "./HeadlineText";
 import HeadingStyle from "./HeadingStyle";
 import HeadlineEffect from "./HeadlineEffect";
 import { BiCopy, BiDownload } from "react-icons/bi";
 import { FiRotateCcw } from "react-icons/fi";
-import { BsEye } from "react-icons/bs";
 import HeadlinePreview from "./HeadlinePreview";
-
-// Inputs types
-export type Inputs = {
-  text: string;
-  fontSize: number;
-  fontFamily: string;
-  fontWeight: number;
-  lineHeight: number;
-  letterSpacing: number;
-  isGradient: boolean;
-  gradientDir: GradientDirection;
-  gradientFrom: string;
-  gradientTo: string;
-  animationType: AnimationTypes;
-  textShadow: boolean;
-  textGlow: boolean;
-};
+import type { WidgetValues } from "../../types/headline-widget.type";
 
 // default inputs
-const defaultInputs: Inputs = {
+const defaultInputs: WidgetValues = {
   text: "Hello World!",
   fontFamily: "Inter",
   fontWeight: 700,
@@ -72,15 +59,19 @@ const animations = {
         }`,
 };
 
+/**
+ * Headline Widget Component
+ * @returns {React.JSX}
+ */
 export default function HeadlineWidget() {
   // tab active state
   const [activeTab, setActiveTab] = useState<TabIds>(TabIds.Text);
   // inputs
-  const [inputs, setInputs] = useState<Inputs>(defaultInputs);
+  const [inputs, setInputs] = useState<WidgetValues>(defaultInputs);
 
   // handle input function
   const handleInput = (
-    name: keyof Inputs,
+    name: keyof WidgetValues,
     value: string | number | boolean
   ) => {
     setInputs((prev) => ({ ...prev, [name]: value }));

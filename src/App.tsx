@@ -1,5 +1,4 @@
-import React from "react";
-import HeadlineWidget from "./component/HeadlineWIdget";
+import HeadlineWidget from "./components/headline-widget/HeadlineWidget";
 
 export default function App() {
   return (

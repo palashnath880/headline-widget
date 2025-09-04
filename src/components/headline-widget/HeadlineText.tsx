@@ -1,10 +1,16 @@
-import type { Inputs } from "./HeadlineWIdget";
+import type { WidgetValues } from "../../types/headline-widget.type";
 
+// HeadlineText component props types
 type HeadlineTextProps = {
-  value: Inputs;
-  onChange: (name: keyof Inputs, value: string) => void;
+  value: WidgetValues;
+  onChange: (name: keyof WidgetValues, value: string) => void;
 };
 
+/**
+ * Headline widget text, font-size, font-family, line-height, letter-spacing,font-weight inputs component
+ * @param HeadlineTextProps
+ * @returns
+ */
 export default function HeadlineText({ value, onChange }: HeadlineTextProps) {
   // props destructuring
   const { fontSize, fontWeight, letterSpacing, lineHeight, text, fontFamily } =

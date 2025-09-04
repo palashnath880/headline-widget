@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import type { Inputs } from "./HeadlineWIdget";
+import type { WidgetValues } from "../../types/headline-widget.type";
 import { BsEye } from "react-icons/bs";
 import { FaCode } from "react-icons/fa6";
 import { BiCopy } from "react-icons/bi";
 import { motion } from "motion/react";
-import { AnimationTypes } from "../interfaces/enum";
+import { AnimationTypes } from "../../types/enum.type";
 
-export default function HeadlinePreview(props: Inputs) {
+/**
+ * Headline widget preview component
+ * @param WidgetValues
+ * @returns
+ */
+export default function HeadlinePreview(props: WidgetValues) {
   // props destructuring
   const {
     animationType,

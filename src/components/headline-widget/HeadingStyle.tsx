@@ -1,11 +1,17 @@
-import { GradientDirection } from "../interfaces/enum";
-import type { Inputs } from "./HeadlineWIdget";
+import { GradientDirection } from "../../types/enum.type";
+import type { WidgetValues } from "../../types/headline-widget.type";
 
+// HeadingStyle component props types
 type HeadingStyleProps = {
-  value: Inputs;
-  onChange: (name: keyof Inputs, value: string | boolean) => void;
+  value: WidgetValues;
+  onChange: (name: keyof WidgetValues, value: string | boolean) => void;
 };
 
+/**
+ * Headline widget style inputs
+ * @param HeadingStyleProps
+ * @returns
+ */
 export default function HeadingStyle({ value, onChange }: HeadingStyleProps) {
   // value destructuring
   const { isGradient, gradientDir, gradientFrom, gradientTo } = value;

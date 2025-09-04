@@ -1,11 +1,17 @@
-import { AnimationTypes } from "../interfaces/enum";
-import type { Inputs } from "./HeadlineWIdget";
+import { AnimationTypes } from "../../types/enum.type";
+import type { WidgetValues } from "../../types/headline-widget.type";
 
+// HeadlineEffect component props types
 type HeadlineEffectProps = {
-  value: Inputs;
-  onChange: (name: keyof Inputs, value: string | boolean) => void;
+  value: WidgetValues;
+  onChange: (name: keyof WidgetValues, value: string | boolean) => void;
 };
 
+/**
+ * Headline widget effect inputs props
+ * @param HeadlineEffectProps
+ * @returns
+ */
 export default function HeadlineEffect({
   onChange,
   value,

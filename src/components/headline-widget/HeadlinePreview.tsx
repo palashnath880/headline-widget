@@ -19,7 +19,7 @@ export default function HeadlinePreview(props: WidgetValues) {
   const [activeTab, setActiveTab] = useState<number>(0);
 
   return (
-    <div className="lg:col-span-3">
+    <div className="lg:col-span-3 max-lg:order-1">
       <div className=" bg-white rounded-2xl shadow-lg border border-gray-100">
         <div className="flex flex-col gap-5 overflow-hidden">
           {/* tabs button*/}

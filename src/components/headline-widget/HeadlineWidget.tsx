@@ -15,6 +15,7 @@ import { BiCopy, BiDownload } from "react-icons/bi";
 import { FiRotateCcw } from "react-icons/fi";
 import HeadlinePreview from "./HeadlinePreview";
 import type { WidgetValues } from "../../types/headline-widget.type";
+import { animations, codePreview, copyCode } from "../../lib/utils";
 
 // default inputs
 const defaultInputs: WidgetValues = {
@@ -31,32 +32,6 @@ const defaultInputs: WidgetValues = {
   textGlow: false,
   textShadow: false,
   animationType: AnimationTypes.FADE_IN,
-};
-
-// animations
-const animations = {
-  "fade-in": `@keyframes fade-in {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }`,
-  "slide-up": `@keyframes slide-up {
-          from { transform: translateY(30px); opacity: 0; }
-          to { transform: translateY(0); opacity: 1; }
-        }`,
-  bounce: `@keyframes bounce {
-          0% { transform: scale(0.3); opacity: 0; }
-          50% { transform: scale(1.05); }
-          70% { transform: scale(0.9); }
-          100% { transform: scale(1); opacity: 1; }
-        }`,
-  scale: `@keyframes scale {
-          from { transform: scale(0.5); opacity: 0; }
-          to { transform: scale(1); opacity: 1; }
-        }`,
-  typewriter: `@keyframes typewriter {
-          from { width: 0; }
-          to { width: 100%; }
-        }`,
 };
 
 /**
@@ -117,7 +92,7 @@ export default function HeadlineWidget() {
     {
       label: "Copy CSS",
       Icon: BiCopy,
-      action: () => {},
+      action: () => copyCode(codePreview(inputs)),
       bg: "bg-purple-600",
     },
     {

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import type { WidgetValues } from "../../types/headline-widget.type";
 import { BsEye } from "react-icons/bs";
 import { FaCode } from "react-icons/fa6";
 import { BiCopy } from "react-icons/bi";
 import { motion } from "motion/react";
-import { AnimationTypes } from "../../types/enum.type";
+import { codePreview, copyCode, getTextStyle } from "../../lib/utils";
 
 /**
  * Headline widget preview component
@@ -13,88 +13,54 @@ import { AnimationTypes } from "../../types/enum.type";
  */
 export default function HeadlinePreview(props: WidgetValues) {
   // props destructuring
-  const {
-    animationType,
-    fontFamily,
-    fontSize,
-    fontWeight,
-    gradientDir,
-    gradientFrom,
-    gradientTo,
-    isGradient,
-    letterSpacing,
-    lineHeight,
-    text,
-    textGlow,
-    textShadow,
-  } = props;
+  const { text } = props;
 
   // tab state
   const [activeTab, setActiveTab] = useState<number>(0);
-
-  // get text style
-  const getTextStyle = () => {
-    const baseStyle: React.HTMLAttributes<HTMLHeadingElement>["style"] = {
-      fontSize: `${fontSize}px`,
-      fontFamily: fontFamily,
-      fontWeight: fontWeight,
-      letterSpacing: `${letterSpacing}px`,
-      lineHeight: lineHeight,
-    };
-
-    if (isGradient) {
-      baseStyle.backgroundImage = `linear-gradient(${gradientDir?.replace(
-        "_",
-        " "
-      )}, ${gradientFrom}, ${gradientTo})`;
-      baseStyle.WebkitBackgroundClip = "text";
-      baseStyle.WebkitTextFillColor = "transparent";
-      baseStyle.backgroundClip = "text";
-    }
-
-    if (textShadow) {
-      baseStyle.textShadow = "2px 2px 4px rgba(0,0,0,0.3)";
-    }
-
-    if (textGlow) {
-      baseStyle.filter = `drop-shadow(0 0 20px ${gradientFrom})`;
-    }
-
-    if (animationType) {
-      if (animationType === AnimationTypes.TYPEWRITER) {
-        baseStyle.whiteSpace = "nowrap";
-        baseStyle.overflow = "hidden";
-        baseStyle.animation = `typewriter 1s ease`;
-        baseStyle.borderRight = "3px solid";
-      } else {
-        baseStyle.animation = `${animationType} 0.3s ease`;
-      }
-    }
-
-    return baseStyle;
-  };
 
   return (
     <div className="lg:col-span-3">
       <div className=" bg-white rounded-2xl shadow-lg border border-gray-100">
         <div className="flex flex-col gap-5 overflow-hidden">
           {/* tabs button*/}
-          <div className="flex items-center border-b border-gray-400">
+          <div className="flex items-center border-b border-gray-400 relative">
+            {/* animated border */}
+            <motion.div
+              className="absolute top-0 left-0 bg-blue-50 h-full w-1/3 border-b border-blue-500"
+              initial={false}
+              animate={{
+                left: `${activeTab * 50}%`,
+                width: `50%`,
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 400,
+                damping: 30,
+              }}
+            />
+
             <button
               onClick={() => setActiveTab(0)}
-              className="flex-1/2 px-10 py-3 flex items-center justify-center cursor-pointer gap-3 font-medium text-gray-700"
+              className={`z-10 flex-1/2 px-10 py-3 flex items-center justify-center cursor-pointer gap-3 font-medium  ${
+                activeTab === 0 ? "text-blue-600" : "text-gray-700"
+              }`}
             >
               <BsEye />
               Preview
             </button>
             <button
               onClick={() => setActiveTab(1)}
-              className="flex-1/2 px-10 py-3 flex items-center justify-center cursor-pointer gap-3 font-medium text-gray-700"
+              className={`z-10 flex-1/2 px-10 py-3 flex items-center justify-center cursor-pointer gap-3 font-medium  ${
+                activeTab === 1 ? "text-blue-600" : "text-gray-700"
+              }`}
             >
               <FaCode />
               Code
             </button>
           </div>
+
+          {/* style */}
+          <style>{getTextStyle(props)}</style>
 
           {/* content */}
           <div className="overflow-hidden">
@@ -113,7 +79,7 @@ export default function HeadlinePreview(props: WidgetValues) {
               <div className="w-1/2">
                 <div className="text-center min-h-[400px] grid place-items-center">
                   <div>
-                    <h2 style={getTextStyle()}>{text}</h2>
+                    <h2 className="headline">{text}</h2>
                   </div>
                 </div>
               </div>
@@ -124,7 +90,7 @@ export default function HeadlinePreview(props: WidgetValues) {
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-white font-semibold">Generated CSS</h3>
                     <button
-                      //   onClick={copyCSS}
+                      onClick={() => copyCode(codePreview(props))}
                       className="flex items-center gap-2 px-3 py-1.5 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm"
                     >
                       <BiCopy size={14} />
@@ -132,14 +98,7 @@ export default function HeadlinePreview(props: WidgetValues) {
                     </button>
                   </div>
                   <pre className="text-green-400 text-sm overflow-x-auto">
-                    {`
-<h1 class="headline">${text}</h1>
-
-.headline ${JSON.stringify(getTextStyle())
-                      .replaceAll('":', ": ")
-                      .replaceAll('"', "")
-                      .replaceAll(",", "\n   ")}
-`}
+                    {codePreview(props)}
                   </pre>
                 </div>
               </div>

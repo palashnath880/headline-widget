@@ -20,7 +20,7 @@ export default function HeadlinePreview(props: WidgetValues) {
 
   return (
     <div className="lg:col-span-3 max-lg:order-1">
-      <div className=" bg-white rounded-2xl shadow-lg border border-gray-100">
+      <div className=" bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
         <div className="flex flex-col gap-5 overflow-hidden">
           {/* tabs button*/}
           <div className="flex items-center border-b border-gray-400 relative">
